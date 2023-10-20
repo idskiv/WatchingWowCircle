@@ -1,0 +1,36 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+ http://wowprogramming.com/FrameXML/UI.xsd">
+	
+    <Button name="WAddon_Hud" inherits="WAddon_Window_mini" hidden="false" toplevel="false">
+        <Size x="153" y="58"/>
+        <Anchors>
+            <Anchor point="TOPRIGHT" relativeTo="MinimapCluster" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+
+        <Frames>
+			<Button name="$parent_Watching" inherits="WAddon_Button" text="Отслеживание" >
+                <Size x="140" y="28"/>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="WAddon_Hud" relativePoint="TOP" x="0" y="-20"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        WAddon.Watching.Toggle();
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+		
+		<Scripts>
+            <OnLoad>
+                WAddon.loadWindow(self, "Watcher", true);
+            </OnLoad>
+            <OnDoubleClick>
+                self:ClearAllPoints();
+                self:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT");
+            </OnDoubleClick>
+        </Scripts>
+    </Button>
+</Ui>

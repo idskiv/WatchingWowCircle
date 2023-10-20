@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/  http://wowprogramming.com/FrameXML/UI.xsd">
+   <EditBox name="WAddon_Watching_Uneditable" inherits="WAddon_Input_Text" virtual="true" autoFocus="false">
+      <Scripts>
+         <OnChar>WAddon.Watching.refresh();</OnChar>
+      </Scripts>
+   </EditBox>
+    <Button name="WAddon_Watching_InfoWindow" inherits="WAddon_Window_watching">
+        <Size>
+            <AbsDimension x="300" y="255"/>
+        </Size>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="WAddon_Hud" relativePoint="TOPLEFT"/>
+        </Anchors>
+        <Scripts>
+            <OnDoubleClick>
+            </OnDoubleClick>
+            <OnClick>
+            </OnClick>
+            <OnLoad>
+                WAddon.loadWindow(self, 'Отслеживание', true);
+            </OnLoad>
+        </Scripts>
+		
+        <Frames>
+            <Frame name="$parent_Info">
+                <Anchors>
+                    <Anchor point="TOP">
+                        <Offset>
+                            <AbsDimension x="0" y="-30"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="220" y="23"/>
+                </Size>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_CharInfo" inherits="sys_tFontNormalSmallspy" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOP"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parent_Guild" inherits="sys_tFontNormalSmallspy" text="" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="TOP" relativeTo="$parent_CharInfo" relativePoint="BOTTOM"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame name="$parent_Filters">
+                <Size>
+                    <AbsDimension x="220" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parent_Info" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="sys_tFontNormalSmallspy" text="Фильтр:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-30" y="-3"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="$parent_Filter" inherits="WAddon_Watching_Uneditable">
+                        <Size>
+                            <AbsDimension x="170" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="40" y="-3"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
+			<Frame name="$parent_Emails">
+                <Size>
+                    <AbsDimension x="220" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parent_Filters" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="sys_tFontNormalSmallspy" text="Почта:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-30" y="-3"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="$parent_Email" inherits="WAddon_Watching_Uneditable">
+                        <Size>
+                            <AbsDimension x="170" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="40" y="-3"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+					<CheckButton name="$ParentToggleButton" inherits="InterfaceOptionsSmallCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="210" y="-3"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+
+							</OnLoad>
+							<OnClick>
+								WAddon.Watching.useEmail();
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self, "ANCHOR_NONE");
+								GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+								CONTAINER_OFFSET_Y);
+								GameTooltip:AddLine("Использовать этот фильтр");
+								GameTooltip:Show();
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+                </Frames>
+            </Frame>
+			<Frame name="$parent_ComputerNames">
+                <Size>
+                    <AbsDimension x="220" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parent_Emails" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="sys_tFontNormalSmallspy" text="CompName:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-30" y="-3"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="$parent_ComputerName" inherits="WAddon_Watching_Uneditable">
+                        <Size>
+                            <AbsDimension x="170" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="40" y="-3"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+					<CheckButton name="$ParentToggleButton" inherits="InterfaceOptionsSmallCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="210" y="-3"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+
+							</OnLoad>
+							<OnClick>
+								WAddon.Watching.useComputerName();
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self, "ANCHOR_NONE");
+								GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+								CONTAINER_OFFSET_Y);
+								GameTooltip:AddLine("Использовать этот фильтр");
+								GameTooltip:Show();
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+                </Frames>
+            </Frame>
+			<Frame name="$parent_PcUserNames">
+                <Size>
+                    <AbsDimension x="220" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parent_ComputerNames" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="sys_tFontNormalSmallspy" text="UserName:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-30" y="-3"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="$parent_PcUserName" inherits="WAddon_Watching_Uneditable">
+                        <Size>
+                            <AbsDimension x="170" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="40" y="-3"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+					<CheckButton name="$ParentToggleButton" inherits="InterfaceOptionsSmallCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="210" y="-3"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+
+							</OnLoad>
+							<OnClick>
+								WAddon.Watching.usePcUserName();
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self, "ANCHOR_NONE");
+								GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+								CONTAINER_OFFSET_Y);
+								GameTooltip:AddLine("Использовать этот фильтр");
+								GameTooltip:Show();
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+                </Frames>
+            </Frame>
+			<Frame name="$parent_Bans">
+                <Size>
+                    <AbsDimension x="220" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parent_PcUserNames" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="sys_tFontNormalSmallspy" text="Бан?"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-30" y="-3"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+					<CheckButton name="$ParentToggleButton" inherits="InterfaceOptionsSmallCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="10" y="-3"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+
+							</OnLoad>
+							<OnClick>
+								WAddon.Watching.useAutoBan();
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self, "ANCHOR_NONE");
+								GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+								CONTAINER_OFFSET_Y);
+								GameTooltip:AddLine("Автоматический бан |nПоля: |nВремя бана   Причина");
+								GameTooltip:Show();
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+                    <EditBox name="$parent_BanTime" inherits="WAddon_Watching_Uneditable">
+                        <Size>
+                            <AbsDimension x="40" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="40" y="-3"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+                    <EditBox name="$parent_BanReason" inherits="WAddon_Watching_Uneditable">
+                        <Size>
+                            <AbsDimension x="130" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="80" y="-3"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
+			<Frame name="$parent_Timers">
+                <Size>
+                    <AbsDimension x="220" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parent_Bans" relativePoint="BOTTOM"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString name="$parent_Title" inherits="sys_tFontNormalSmallspy" text="Таймер:"
+                                    justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-30" y="-19"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox name="$parent_Timer" inherits="WAddon_Watching_Uneditable">
+                        <Size>
+                            <AbsDimension x="50" y="18"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="LEFT">
+                                <Offset>
+                                    <AbsDimension x="40" y="-19"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
+
+            <Button name="$parent_StartButton" inherits="WAddon_Button" text="Отслеживать">
+			<Size>
+                    <AbsDimension x="84" y="25"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="7" y="13"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                    </OnLoad>
+                    <OnClick>
+                        WAddon.Watching.watch();
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("Начать отслеживание");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+			<Button name="$parent_InstantStartButton" inherits="WAddon_Button" text="Проверить">
+			<Size>
+                <AbsDimension x="84" y="25"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="93" y="13"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                    </OnLoad>
+                    <OnClick>
+                        WAddon.Watching.GetOnlineInfo();
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_NONE");
+                        GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+                        CONTAINER_OFFSET_Y);
+                        GameTooltip:AddLine("Немедленно запустить проверку");
+                        GameTooltip:Show();
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide();
+                    </OnLeave>
+                </Scripts>
+            </Button>
+			
+        </Frames>
+    </Button>
+</Ui>

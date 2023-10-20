@@ -1,0 +1,282 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+ http://wowprogramming.com/FrameXML/UI.xsd">
+
+    <Font name="sys_tFontNormalSmall" font="Fonts\FRIZQT__.TTF" virtual="true">
+        <Color r="1" g="0.75" b="0.75" a="1"/>
+		<FontHeight val="15"/>
+    </Font>
+	<Font name="sys_tFontNormalSmallspy" font="Fonts\FRIZQT__.TTF" virtual="true">
+        <Color r="1" g="0.75" b="0.75" a="1"/>
+		<FontHeight val="13"/>
+    </Font>
+	<Font name="inftextstyle" font="Fonts\FRIZQT__.TTF" virtual="true">
+        <Color r="0.9" g="0.9" b="0.9" a="0.9"/>
+		<FontHeight val="24"/>
+    </Font>
+    <Font name="sys_tFontDisabledSmall" font="Fonts\FRIZQT__.TTF" virtual="true">
+        <Color r="1" g="0.75" b="0.75" a="0.5"/>
+		<FontHeight val="13"/>
+    </Font>
+    <Font name="sys_tFontHighlightSmall" font="Fonts\FRIZQT__.TTF" virtual="true">
+        <Color r="1" g="1" b="0.75" a="1"/>
+		<FontHeight val="13"/>
+    </Font>
+	<Font name="sys_tFontHighlightSmallspy" font="Fonts\FRIZQT__.TTF" virtual="true">
+        <Color r="1" g="1" b="0.75" a="1"/>
+		<FontHeight val="10"/>
+    </Font>
+    <Font name="sys_tFontRedSmall" font="Fonts\FRIZQT__.TTF" virtual="true">
+        <Color r="1" g="0.5" b="0.5" a="1"/>
+		<FontHeight val="13"/>
+    </Font>
+    <Font name="sys_tFontRedDisabledSmall" font="Fonts\FRIZQT__.TTF" virtual="true">
+        <Color r="1" g="0.5" b="0.5" a="0.5"/>
+		<FontHeight val="13"/>
+    </Font> 
+	
+	<EditBox name="WAddon_Input_Text" enableMouse="true" virtual="true" frameStrata="DIALOG" autoFocus="false" >
+        <Size>
+            <AbsDimension x="100" y="18"/>
+        </Size>
+        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background"
+                          edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+
+                    <EdgeSize>
+                        <AbsValue val="12"/>
+                    </EdgeSize>
+                    <TileSize>
+                        <AbsValue val="12"/>
+                    </TileSize>
+                    <BackgroundInsets>
+                        <AbsInset left="3" right="3" top="3" bottom="3"/>
+                    </BackgroundInsets>
+                </Backdrop>
+        <Scripts>
+            <OnLoad>
+                self:SetTextInsets(5, 5, 0, 2);
+                self:SetBackdropColor(0,0,0);
+            </OnLoad>
+            <OnEnterPressed>
+                self:ClearFocus();
+            </OnEnterPressed>
+            <OnEscapePressed>
+                self:ClearFocus();
+            </OnEscapePressed>
+        </Scripts>
+        <FontString inherits="sys_tFontHighlightSmall"/>
+    </EditBox>
+
+	<Button name="WAddon_Window_mini" virtual="true" toplevel="false" frameStrata="HIGH" parent="UIParent" movable="true" enableMouse="true" hidden="true">
+	   <Frames>
+		  <Frame name="$parent_Title">
+			 <Size>
+				<AbsDimension x="160" y="9" />
+			 </Size>
+			 <Anchors>
+				<Anchor point="TOP" />
+			 </Anchors>
+			 <Layers>
+				<Layer level="ARTWORK">
+				   <Texture name="$parentTitleBorder" file="Interface\DialogFrame\UI-DialogBox-Header">
+					  <Size>
+						 <AbsDimension x="160" y="32" />
+					  </Size>
+					  <Anchors>
+						 <Anchor point="TOP">
+							<Offset>
+							   <AbsDimension x="0" y="10" />
+							</Offset>
+						 </Anchor>
+					  </Anchors>
+					  <TexCoords left="0.2" right="0.8" top="0" bottom="0.7" />
+				   </Texture>
+				   <FontString name="$parent_Text" inherits="sys_tFontHighlightSmall" text="" justifyH="CENTER" />
+				</Layer>
+			 </Layers>
+		  </Frame>
+		  
+		  <Button name="$parent_Refresh" inherits="WAddon_Button" text="Телепорт" hidden='true'>
+                <Size>
+                    <AbsDimension x="0" y="0"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="BOTTOM">
+                        <Offset>
+                            <AbsDimension x="0" y="10"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                    
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+		  <Frame name="$parent_Main" frameLevel="-1">
+			 <Size>
+				<AbsDimension x="150" y="15" />
+			 </Size>
+			 <Anchors>
+				<Anchor point="TOP">
+				   <Offset>
+					  <AbsDimension x="-1" y="-12" />
+				   </Offset>
+				</Anchor>
+			 </Anchors>
+			 <Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<BackgroundInsets>
+				   <AbsInset left="5" right="5" top="200" bottom="5" />
+				</BackgroundInsets>
+				<TileSize>
+				   <AbsValue val="25" />
+				</TileSize>
+				<EdgeSize>
+				   <AbsValue val="25" />
+				</EdgeSize>
+			 </Backdrop>
+		  </Frame>
+	   </Frames>
+	   <Scripts>
+		  <OnMouseDown>self:StartMoving();</OnMouseDown>
+		  <OnMouseUp>self:StopMovingOrSizing();</OnMouseUp>
+		  <OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+	   </Scripts>
+	</Button>
+	
+	<Button name="WAddon_Window_watching" virtual="true" toplevel="true" frameStrata="HIGH" parent="UIParent" movable="true" enableMouse="true" hidden="true">
+	   <Frames>
+		  <Frame name="$parent_Title">
+			 <Size>
+				<AbsDimension x="160" y="29" />
+			 </Size>
+			 <Anchors>
+				<Anchor point="TOP" />
+			 </Anchors>
+			 <Layers>
+				<Layer level="ARTWORK">
+				   <Texture name="$parentTitleBorder" file="Interface\DialogFrame\UI-DialogBox-Header">
+					  <Size>
+						 <AbsDimension x="160" y="32" />
+					  </Size>
+					  <Anchors>
+						 <Anchor point="TOP">
+							<Offset>
+							   <AbsDimension x="0" y="0" />
+							</Offset>
+						 </Anchor>
+					  </Anchors>
+					  <TexCoords left="0.2" right="0.8" top="0" bottom="0.7" />
+				   </Texture>
+				   <FontString name="$parent_Text" inherits="sys_tFontHighlightSmallspy" text="" justifyH="CENTER" />
+				</Layer>
+			 </Layers>
+		  </Frame>
+		  <Button name="$parent_Close" inherits="UIPanelCloseButton">
+			 <Size>
+				<AbsDimension x="18" y="18" />
+			 </Size>
+			 <Anchors>
+				<Anchor point="TOPRIGHT">
+				   <Offset>
+					  <AbsDimension x="-5" y="-16" />
+				   </Offset>
+				</Anchor>
+			 </Anchors>
+			 <Scripts>
+				<OnClick>HideUIPanel(self:GetParent());WAddon.Watching.Visible = false;</OnClick>
+			 </Scripts>
+		  </Button>
+		  <Button name="$parent_Refresh" inherits="WAddon_Button" text="Обновить" hidden="true">
+			 <Size>
+				<AbsDimension x="0" y="0" />
+			 </Size>
+			 <Anchors>
+				<Anchor point="BOTTOMRIGHT">
+				   <Offset>
+					  <AbsDimension x="-15" y="30" />
+				   </Offset>
+				</Anchor>
+			 </Anchors>
+			 <Scripts>
+				<OnClick />
+			 </Scripts>
+		  </Button>
+		  <Frame name="$parent_Main" frameLevel="1">
+			 <Size>
+				<AbsDimension x="150" y="15" />
+			 </Size>
+			 <Anchors>
+				<Anchor point="TOP">
+				   <Offset>
+					  <AbsDimension x="-1" y="-12" />
+				   </Offset>
+				</Anchor>
+			 </Anchors>
+			 <Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+				<BackgroundInsets>
+				   <AbsInset left="5" right="5" top="200" bottom="5" />
+				</BackgroundInsets>
+				<TileSize>
+				   <AbsValue val="25" />
+				</TileSize>
+				<EdgeSize>
+				   <AbsValue val="25" />
+				</EdgeSize>
+			 </Backdrop>
+			 <Layers>
+				<Layer level="BACKGROUND">
+				   <Texture name="A$parentScrollBarTop" file="Interface/RAIDFRAME/UI-RaidFrame-GroupBg.png">
+					  <Size>
+						 <AbsDimension x="230" y="210" />
+					  </Size>
+					  <Anchors>
+						 <Anchor point="BUTTOM">
+							<Offset>
+							   <AbsDimension x="8" y="-5" />
+							</Offset>
+						 </Anchor>
+					  </Anchors>
+				   </Texture>
+				</Layer>
+			 </Layers>
+		  </Frame>
+	   </Frames>
+	   <Scripts>
+		  <OnMouseDown>self:StartMoving();</OnMouseDown>
+		  <OnMouseUp>self:StopMovingOrSizing();</OnMouseUp>
+		  <OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+	   </Scripts>
+	</Button>
+	
+	<Button name="WAddon_Button" virtual="true" frameStrata="HIGH" frameLevel="2">
+        <Size>
+            <AbsDimension x="70" y="28"/>
+        </Size>
+		<NormalTexture inherits="DialogButtonNormalTexture"/>
+				<PushedTexture inherits="DialogButtonPushedTexture"/>
+				<HighlightTexture inherits="DialogButtonHighlightTexture"/>
+        <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+                          edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="12"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="12"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="3" right="2" top="3" bottom="3"/>
+            </BackgroundInsets>
+            <Color r="1" g="0" b="0" a="1"/>
+        </Backdrop>
+        <NormalFont style="sys_tFontHighlightSmall"/>
+        <HighlightFont style="sys_tFontNormalSmall"/>
+        <ButtonText name="$parentText">
+            <Anchors>
+                <Anchor point="CENTER"/>
+            </Anchors>
+        </ButtonText>
+    </Button>
+</Ui>

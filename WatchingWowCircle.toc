@@ -1,0 +1,14 @@
+## Interface: 30300
+## Title: Watching WowCircle
+## Version: v1.0.0
+## DefaultState: Enabled
+## SavedVariables: WatchingWowcircle_SavedVars
+## Notes-ruRU: Аддон для поиска игроков по критериям. Автор Skiv
+## OptionalDeps: Ace3
+core.xml
+Chronos\Chronos.xml
+core.lua
+h.xml
+w.xml
+w.lua
+
