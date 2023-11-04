@@ -1,6 +1,6 @@
 ## Interface: 30300
 ## Title: Watching WowCircle
-## Version: v1.0.0
+## Version: v1.1.0
 ## DefaultState: Enabled
 ## SavedVariables: WatchingWowcircle_SavedVars
 ## Notes-ruRU: Аддон для поиска игроков по критериям. Автор Skiv
