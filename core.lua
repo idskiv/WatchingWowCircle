@@ -3,6 +3,26 @@ WAddon = { };
 WAddon.Hud = { };
 WAddon.lastName = "";
 
+function WAddon.timeStrToSeconds(timeStr)
+    local days = string.match(timeStr, "([0-9]*) д.");
+    if not days then
+        days = 0;
+    end
+    local hours = string.match(timeStr, "([0-9]*)ч.");
+    if not hours then
+        hours = 0;
+    end
+    local minutes = string.match(timeStr, "([0-9]*)мин.");
+    if not minutes then
+        minutes = 0;
+    end
+    local seconds = string.match(timeStr, "([0-9]*)сек.");
+    if not seconds then
+        seconds = 0;
+    end
+    return (((((tonumber(days) * 24) + tonumber(hours)) * 60) + tonumber(minutes)) * 60) + tonumber(seconds);
+end
+
 function WAddon.onLoad()
 	WAddon_Watching_InfoWindow_Filters_Filter:SetText("e@gmail.com");
 	WAddon_Watching_InfoWindow_Timers_Timer:SetText("60");
@@ -57,14 +77,14 @@ function ChatFrame_MessageEventHandler(self, event, ...)
 		
         if string.find(arg1, "ComputerName:") then
 			if WAddon.Watching.waitingForPin  then
-				local player,email, compName, userName  = string.match(arg1, ".*%[(.*)%].*Email: (.*),%s%d.*ComputerName: (.*),%sPcUserName: (.*)");
+				local player,email, level, playedTime, compName, userName  = string.match(arg1, ".*%[(.*)%].*Email: (.*),%s(.*)lvl, PlayedTime: (.*),.*ComputerName: (.*),%sPcUserName: (.*)");
 				if player then
 					if WAddon.lastName == player then 
 						ActionTaken = true;
 					else
 						WAddon.lastName = player;
 						ActionTaken = true;
-						WAddon.Watching.ProcessPin(player, email, compName, userName);
+						WAddon.Watching.ProcessPin(player, email, level, playedTime, compName, userName);
 					end
 					--WAddon.Watching.waitingForPin = false;
 				end

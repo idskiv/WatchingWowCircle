@@ -7,7 +7,7 @@
    </EditBox>
     <Button name="WAddon_Watching_InfoWindow" inherits="WAddon_Window_watching">
         <Size>
-            <AbsDimension x="300" y="255"/>
+            <AbsDimension x="350" y="255"/>
         </Size>
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="WAddon_Hud" relativePoint="TOPLEFT"/>
@@ -119,7 +119,7 @@
                             </Anchor>
                         </Anchors>
                     </EditBox>
-					<CheckButton name="$ParentToggleButton" inherits="InterfaceOptionsSmallCheckButtonTemplate">
+					<CheckButton name="$ParentToggleButtonUse" inherits="InterfaceOptionsSmallCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="LEFT">
 								<Offset>
@@ -139,6 +139,33 @@
 								GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
 								CONTAINER_OFFSET_Y);
 								GameTooltip:AddLine("Использовать этот фильтр");
+								GameTooltip:Show();
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$ParentToggleButtonCase" inherits="InterfaceOptionsSmallCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="240" y="-3"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+
+							</OnLoad>
+							<OnClick>
+								WAddon.Watching.caseEmail();
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self, "ANCHOR_NONE");
+								GameTooltip:SetPoint("BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -CONTAINER_OFFSET_X - 13,
+								CONTAINER_OFFSET_Y);
+								GameTooltip:AddLine("Убрать лишние символы");
 								GameTooltip:Show();
 							</OnEnter>
 							<OnLeave>

@@ -9,6 +9,7 @@ WAddon.Watching.account = "";
 WAddon.Watching.filter = "";
 WAddon.Watching.Email = "";
 WAddon.Watching.Email_use = false;
+WAddon.Watching.Email_case = false;
 WAddon.Watching.PcUserName = "";
 WAddon.Watching.PcUserName_use = false;
 WAddon.Watching.ComputerName = "";
@@ -24,6 +25,14 @@ function WAddon.Watching.useEmail()
 		WAddon.Watching.Email_use = false;
 	else
 		WAddon.Watching.Email_use = true;
+	end
+end
+
+function WAddon.Watching.caseEmail()
+	if WAddon.Watching.Email_case then
+		WAddon.Watching.Email_case = false;
+	else
+		WAddon.Watching.Email_case = true;
 	end
 end
 
@@ -85,7 +94,7 @@ function WAddon.Watching.GetOnlineInfo()
 	]]
 end
 
-function WAddon.Watching.ProcessPin(player, email, compName, userName)
+function WAddon.Watching.ProcessPin(player, email, level, playedTime, compName, userName)
 	local finding_email, finding_compName, finding_userName = false; 
 	local email_check = true;
 	local compName_check = true;
@@ -93,6 +102,10 @@ function WAddon.Watching.ProcessPin(player, email, compName, userName)
 	
 	if WAddon.Watching.Email_use then
 		local filter_email = WAddon_Watching_InfoWindow_Emails_Email:GetText();
+		if WAddon.Watching.Email_case then 
+			email = string.gsub(email, '%p', '');
+		end
+
 		for _, filter_one in ipairs({ strsplit(",", filter_email) }) do
 			local index = string.find(strupper(email), strupper(filter_one));
 			if #filter_one ~=0 and index then
@@ -149,14 +162,14 @@ function WAddon.Watching.ProcessPin(player, email, compName, userName)
 	end
 	
 	if email_check and compName_check and userName_check then
-		Chronos.schedule(0.25,WAddon.Watching.FoundPlayer, player, email, compName, userName);
+		Chronos.schedule(0.25,WAddon.Watching.FoundPlayer, player, email, level, playedTime, compName, userName);
 		--print("Найден игрок: |cff7ff531"..player .. "|r Почта: ".. email .." Имя компьютера: ".. compName .." Имя пользователя: ".. userName);
 	end
 	
 end
 
-function WAddon.Watching.FoundPlayer(player, email, compName, userName)
-	print("Найден игрок: |cff7ff531"..player .. "|r Почта: ".. email .." Имя компьютера: ".. compName .." Имя пользователя: ".. userName);
+function WAddon.Watching.FoundPlayer(player, email, level, playedTime, compName, userName)
+	print("Найден игрок: |cff7ff531"..player .. "|r Почта: "..email.." Уровень: "..level.." Игровое время: "..playedTime.." Имя компьютера: ".. compName .." Имя пользователя: ".. userName);
 	
 	if WAddon.Watching.AutoBan_use then
 		local ban_Time = WAddon_Watching_InfoWindow_Bans_BanTime:GetText();
